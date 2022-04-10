@@ -1,4 +1,4 @@
-# SCANNING
+# 3DReconstruction-Scanning
 It's a framework of 3D pointcloud scene reconstruction on multi-cameras scanning images.
 
 1)decode light spots 3d position
