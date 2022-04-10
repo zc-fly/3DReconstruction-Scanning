@@ -1,0 +1,12 @@
+
+dataSimulate：
+1、data_simulate(), scratch two stack(.tif) files, setting distance to generate one synthetic stack file
+2、simulation(), gaussian point simulation
+
+driftCorrection：setting drift paraments(x,y) to correcte frame sequence
+
+locPaint2img：paint the localized result on raw TIF file, support one frame tif file and frame suquence
+
+xyz_resolution：test our instrument's resolution
+
+registrater_frameSequence：register adjacent frames on pointclouds

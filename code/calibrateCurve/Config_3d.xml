@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<settings>
+  <!-- Film parameters -->
+  <!-- -1 = start at the beginning, analyze to the end -->
+  <start_frame type="int">-1</start_frame>
+  <max_frame type="int">-1</max_frame>
+
+  <!-- These are for reducing the analysis AOI -->
+  <!--
+  <x_start type="int">1</x_start>
+  <x_stop type="int">256</x_stop>
+  <y_start type="int">1</y_start>
+  <y_stop type="int">256</y_stop>
+  -->
+
+  <!-- Fitting parameters -->
+  <!-- Model is one of 2dfixed, 2d, 3d, or Z"
+       2dfixed - fixed sigma 2d gaussian fitting.
+       2d - variable sigma 2d gaussian fitting.
+       3d - x, y sigma are independently variable,
+            z will be fit after peak fitting.
+       Z - x, y sigma depend on z, z is fit as
+           part of peak fitting.
+       -->
+  <model type="string">3d</model>
+
+  <!-- Sigma of the filter to use for background estimation. -->
+  <background_sigma type="float">5.0</background_sigma>
+  
+  <!-- Sigma of the filter to use for foreground estimation. -->
+  <!-- Usually this is about the same as 'sigma'. -->
+  <foreground_sigma type="float">2</foreground_sigma>
+
+  <!-- Camera gain -->
+  <!-- Gain in units of ADU / photo-electron. -->
+  <camera_gain type="float">2.18</camera_gain>
+
+  <!-- Camera offset -->
+  <!-- This is what the camera reads with the shutter closed. -->
+  <camera_offset type="float">100.0</camera_offset>
+
+  <!-- Radius around a maximum for it to be considered as a localization. -->
+  <find_max_radius type="int">10</find_max_radius>
+  
+  <!-- Maximum number of iterations for new peak finding -->
+  <iterations type="int">20</iterations>
+  
+  <!-- CCD pixel size (in nm) -->
+  <pixel_size type="float">162</pixel_size>
+
+  <!-- threshold -->
+  <!-- Threshold in units of sigma, as in "3 sigma event." -->  
+  <threshold type="float">20</threshold>
+
+  <!-- initial guess for sigma -->
+  <!-- This is in units of pixels. If you are using the 
+       2dfixed model then it needs to be pretty close to 
+       the correct value or the program will generate lots 
+       of spurious double and triple peaks. For 2d it should 
+       be close, probably within 50% or so of the average 
+       peak sigma or the fitting might fail to converge on 
+       many peaks. 3d is similar to 2d. It should not effect 
+       fitting for Z the model. -->
+  <sigma type="float">2</sigma>
+
+  <!-- Tracking parameters -->
+  <!-- Frame descriptor string
+       0 - activation frame
+       1 - non-specific frame
+       2 - channel1 frame
+       3 - channel2 frame
+       4 - etc..
+       -->
+ <descriptor type="string">0</descriptor>
+
+  <!-- Radius for matching peaks from frame to frame -->
+  <!-- Localizations that are closer than this value 
+       (in pixels) in adjacent frames (ignoring activation
+       frames) are assumed to come from the same emitter 
+       and are averaged together to create a (hopefully) 
+       more accurately localized emitter. 
+       If this is zero then no matching will be done. -->
+  <radius type="float">0.0</radius>
+
+
+  <!-- Z fitting parameters. -->
+
+  <!-- do z fitting (or not), only relevant for "3d" fitting. -->
+  <do_zfit type="int">1</do_zfit>
+
+  <!-- z fit cutoff (used when z is calculated later from wx, wy). -->
+  <cutoff type="float">1.5</cutoff>
+
+  <!-- wx vs z parameters. -->
+  <wx_wo type="float">286.591</wx_wo>
+  <wx_c type="float">159.290</wx_c>
+  <wx_d type="float">325.686</wx_d>
+  <wxA type="float">-0.193</wxA>
+  <wxB type="float">1.163</wxB>
+  <wxC type="float">1.193</wxC>
+  <wxD type="float">0.321</wxD>
+  
+  <wy_wo type="float">274.442</wy_wo>
+  <wy_c type="float">-185.842</wy_c>
+  <wy_d type="float">348.407</wy_d>
+  <wyA type="float">0.213</wyA>
+  <wyB type="float">1.634</wyB>
+  <wyC type="float">-1.739</wyC>
+  <wyD type="float">0.543</wyD>
+
+
+  <!-- range for z fitting, specified in um-->
+  <min_z type="float">-0.8</min_z>
+  <max_z type="float">0.8</max_z>
+
+
+  <!-- Drift correction parameters -->
+  <!-- do drift correction 0 = No -->
+  <drift_correction type="int">0</drift_correction>
+
+  <!-- number of frames in each sub-STORM image. -->
+  <frame_step type="int">500</frame_step>
+  
+  <!-- ... 2 is a good value -->
+  <!-- This is the "scale" at which to render the sub-STORM
+       images for drift correction. Drift correction works 
+       by creating STORM images from frame_step sized groups 
+       of frames. These are rendered scaled by the d_scale 
+       parameter. For example, if your data is 256x256 pixels 
+       then the drift-correction will create 512x512 sub-STORM 
+       images (for d_scale = 2) and then attempt to correlate 
+       these images to each other to calculate the drift. 
+       Using a larger d_scale value creates higher resolution 
+       sub-STORM images, but they are also sparser so you 
+       might not see any improvement in the drift correction. -->
+  <d_scale type="int">2</d_scale>  
+
+</settings>
+
+
